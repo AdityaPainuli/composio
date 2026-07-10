@@ -85,7 +85,7 @@ while [[ $# -gt 0 ]]; do
         ;;
     -h|--help)
         echo 'Usage: install.sh [--agent] [version-tag]  (e.g. "@composio/cli@0.1.32")'
-        echo '  --agent    After installing, sign up/log in as a Composio agent.'
+        echo '  --agent    After installing, create/restore an agent identity and set up detected agent hosts.'
         exit 0
         ;;
     --*)
@@ -393,9 +393,18 @@ rm -f "$install_err"
 
 if [[ $install_agent = true ]]; then
     echo
-    info "Setting up Composio agent login..."
-    if ! "$exe" login --agent --no-skill-install; then
-        error 'Failed to sign up/log in as a Composio agent. If this CLI is already signed in as a regular user, run `composio logout` and then `composio signup` or `composio agent login <composio_agent_key>`.'
+    if command -v claude >/dev/null 2>&1 || command -v codex >/dev/null 2>&1; then
+        info "Setting up the Composio agent identity and detected agent hosts..."
+        # Release sequencing: both marketplace repositories referenced by `composio setup`
+        # must be publicly accessible before publishing a CLI release with this behavior.
+        if ! "$exe" setup --agent --target auto --yes; then
+            error 'Failed to set up the Composio agent identity and plugins. Verify that the Composio plugin marketplaces are reachable, then rerun `composio setup --agent --target auto --yes`.'
+        fi
+    else
+        info "No supported agent host detected; setting up the Composio agent identity only..."
+        if ! "$exe" login --agent --no-skill-install; then
+            error 'Failed to sign up/log in as a Composio agent. If this CLI is already signed in as a regular user, run `composio logout` and then `composio signup` or `composio agent login <composio_agent_key>`.'
+        fi
     fi
 fi
 
@@ -409,7 +418,7 @@ fi
 
 info_bold "  composio --help"
 if [[ $install_agent = true ]]; then
-    info_bold "  composio agent whoami"
+    info_bold "  composio setup status"
 else
     info_bold "  composio login"
 fi

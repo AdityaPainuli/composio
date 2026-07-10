@@ -162,7 +162,10 @@ const GENERATE_COMMAND: TaggedValue<CompactCommand> = tagged({
 // ── Account commands ───────────────────────────────────────────────────
 
 const ACCOUNT_COMMANDS: ReadonlyArray<TaggedValue<CompactCommand>> = [
+  tagged({ name: 'setup', description: 'Authenticate and install agent plugins' }),
   tagged({ name: 'login', description: 'Log in to Composio' }),
+  tagged({ name: 'signup', description: 'Create and log in with a Composio agent identity' }),
+  tagged({ name: 'agent', description: 'Manage a Composio agent identity' }),
   tagged({ name: 'logout', description: 'Log out from Composio' }),
   tagged({ name: 'whoami', description: 'Show current account info' }),
   tagged({ name: 'orgs', description: 'Manage current organization context (list, switch)' }),
@@ -829,7 +832,7 @@ const SUBCOMMAND_HELP: Record<string, SubcommandHelp | TaggedValue<SubcommandHel
 
   login: {
     usage:
-      'composio login [--no-browser] [--poll] [--no-wait] [--key text] [--user-api-key text] [--org text] [-y, --yes] [--no-skill-install]',
+      'composio login [--agent] [--no-browser] [--poll] [--no-wait] [--key text] [--user-api-key text] [--org text] [-y, --yes] [--no-skill-install]',
     description:
       'Log in to the Composio CLI session. By default, also installs the composio-cli skill for Claude Code.',
     options: [
@@ -847,6 +850,10 @@ const SUBCOMMAND_HELP: Record<string, SubcommandHelp | TaggedValue<SubcommandHel
       },
     ],
     flags: [
+      {
+        name: '--agent',
+        description: 'Restore or create a browserless Composio agent identity and log in',
+      },
       { name: '--no-browser', description: 'Login without browser interaction' },
       {
         name: '--poll',
@@ -867,6 +874,26 @@ const SUBCOMMAND_HELP: Record<string, SubcommandHelp | TaggedValue<SubcommandHel
   whoami: {
     usage: 'composio whoami',
     description: 'Display your account information.',
+  },
+  setup: {
+    usage: 'composio setup [--agent] [--target auto|claude|codex|all] [--yes]',
+    description: 'Authenticate Composio and install plugins for supported agent hosts.',
+    examples: [
+      'composio setup',
+      'composio setup --agent --target auto --yes',
+      'composio setup --target all',
+      'composio setup status --json',
+    ],
+    options: [
+      { name: '--agent', description: 'Use a browserless Composio agent identity' },
+      { name: '--target <target>', description: 'auto, claude, codex, or all' },
+      { name: '-y, --yes', description: 'Accept setup changes without prompting' },
+    ],
+  },
+  'setup status': {
+    usage: 'composio setup status [--json]',
+    description: 'Inspect Composio identity and agent plugin installation status.',
+    flags: [{ name: '--json', description: 'Print machine-readable JSON' }],
   },
   version: {
     usage: 'composio version',
