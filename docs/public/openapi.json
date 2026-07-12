@@ -11251,37 +11251,6 @@
                           "is_enabled_for_tool_router": {
                             "type": "boolean",
                             "description": "Whether this auth config is enabled for tool router"
-                          },
-                          "deprecated_params": {
-                            "type": "object",
-                            "properties": {
-                              "default_connector_id": {
-                                "type": "string",
-                                "nullable": true,
-                                "description": "Deprecated: Default connector ID"
-                              },
-                              "member_uuid": {
-                                "type": "string",
-                                "description": "Deprecated: Member UUID"
-                              },
-                              "toolkit_id": {
-                                "type": "string",
-                                "description": "Deprecated: Toolkit ID"
-                              },
-                              "expected_input_fields": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "additionalProperties": {}
-                                },
-                                "description": "Deprecated: Fields expected during connection initialization"
-                              }
-                            },
-                            "required": [
-                              "default_connector_id"
-                            ],
-                            "description": "DEPRECATED: This parameter will be removed in a future version.",
-                            "deprecated": true
                           }
                         },
                         "required": [
@@ -11568,37 +11537,6 @@
                     "is_enabled_for_tool_router": {
                       "type": "boolean",
                       "description": "Whether this auth config is enabled for tool router"
-                    },
-                    "deprecated_params": {
-                      "type": "object",
-                      "properties": {
-                        "default_connector_id": {
-                          "type": "string",
-                          "nullable": true,
-                          "description": "Deprecated: Default connector ID"
-                        },
-                        "member_uuid": {
-                          "type": "string",
-                          "description": "Deprecated: Member UUID"
-                        },
-                        "toolkit_id": {
-                          "type": "string",
-                          "description": "Deprecated: Toolkit ID"
-                        },
-                        "expected_input_fields": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          },
-                          "description": "Deprecated: Fields expected during connection initialization"
-                        }
-                      },
-                      "required": [
-                        "default_connector_id"
-                      ],
-                      "description": "DEPRECATED: This parameter will be removed in a future version.",
-                      "deprecated": true
                     }
                   },
                   "required": [
@@ -12384,20 +12322,6 @@
                               "is_disabled": {
                                 "type": "boolean",
                                 "description": "Whether the auth config is disabled"
-                              },
-                              "deprecated": {
-                                "type": "object",
-                                "properties": {
-                                  "uuid": {
-                                    "type": "string",
-                                    "format": "uuid",
-                                    "description": "The uuid of the auth config"
-                                  }
-                                },
-                                "required": [
-                                  "uuid"
-                                ],
-                                "deprecated": true
                               }
                             },
                             "required": [
@@ -12661,28 +12585,6 @@
                           "test_request_endpoint": {
                             "type": "string",
                             "description": "The endpoint to make test request for verification"
-                          },
-                          "deprecated": {
-                            "type": "object",
-                            "properties": {
-                              "labels": {
-                                "type": "array",
-                                "items": {
-                                  "type": "string"
-                                },
-                                "description": "The labels of the connection"
-                              },
-                              "uuid": {
-                                "type": "string",
-                                "format": "uuid",
-                                "description": "The uuid of the connection"
-                              }
-                            },
-                            "required": [
-                              "labels",
-                              "uuid"
-                            ],
-                            "deprecated": true
                           }
                         },
                         "required": [
@@ -13246,27 +13148,6 @@
                       "description": "DEPRECATED: This field will be removed in a future version",
                       "deprecated": true
                     },
-                    "deprecated": {
-                      "type": "object",
-                      "properties": {
-                        "uuid": {
-                          "type": "string",
-                          "format": "uuid",
-                          "description": "The uuid of the connected account"
-                        },
-                        "authConfigUuid": {
-                          "type": "string",
-                          "format": "uuid",
-                          "description": "The uuid of the auth config"
-                        }
-                      },
-                      "required": [
-                        "uuid",
-                        "authConfigUuid"
-                      ],
-                      "description": "DEPRECATED: This field will be removed in a future version. Please use id and auth_config.id instead.",
-                      "deprecated": true
-                    },
                     "experimental": {
                       "type": "object",
                       "properties": {
@@ -13464,20 +13345,6 @@
                         "is_disabled": {
                           "type": "boolean",
                           "description": "Whether the auth config is disabled"
-                        },
-                        "deprecated": {
-                          "type": "object",
-                          "properties": {
-                            "uuid": {
-                              "type": "string",
-                              "format": "uuid",
-                              "description": "The uuid of the auth config"
-                            }
-                          },
-                          "required": [
-                            "uuid"
-                          ],
-                          "deprecated": true
                         }
                       },
                       "required": [
@@ -13741,28 +13608,6 @@
                     "test_request_endpoint": {
                       "type": "string",
                       "description": "The endpoint to make test request for verification"
-                    },
-                    "deprecated": {
-                      "type": "object",
-                      "properties": {
-                        "labels": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          },
-                          "description": "The labels of the connection"
-                        },
-                        "uuid": {
-                          "type": "string",
-                          "format": "uuid",
-                          "description": "The uuid of the connection"
-                        }
-                      },
-                      "required": [
-                        "labels",
-                        "uuid"
-                      ],
-                      "deprecated": true
                     },
                     "params": {
                       "type": "object",
@@ -14264,8 +14109,9 @@
     },
     "/api/v3.1/connected_accounts/{nanoid}/refresh": {
       "post": {
-        "summary": "Refresh authentication for a connected account",
-        "description": "Initiates a new authentication flow for a connected account when credentials have expired or become invalid. This may generate a new authentication URL for OAuth flows or refresh tokens for other auth schemes.",
+        "summary": "Refresh authentication for a connected account (DEPRECATED)",
+        "description": "DEPRECATED: Manual refresh of a connected account is deprecated. Composio automatically refreshes credentials in the background as they approach expiry, so this endpoint is no longer required and may be removed in a future release. Initiates a new authentication flow for a connected account when credentials have expired or become invalid. This may generate a new authentication URL for OAuth flows or refresh tokens for other auth schemes.",
+        "deprecated": true,
         "tags": [
           "Connected Accounts"
         ],
@@ -17686,6 +17532,22 @@
             "schema": {
               "type": "string",
               "enum": [
+                "native",
+                "custom",
+                "all"
+              ],
+              "description": "Filter by toolkit provenance: \"native\" (Composio-managed), \"custom\" (project-registered custom toolkits), or \"all\". Takes precedence over managed_by when both are supplied.",
+              "example": "custom"
+            },
+            "required": false,
+            "description": "Filter toolkits by provenance (alias over managed_by)",
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
                 "usage",
                 "alphabetically"
               ],
@@ -17762,6 +17624,15 @@
                             "type": "string",
                             "description": "Human-readable name of the toolkit",
                             "example": "GitHub"
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "native",
+                              "custom"
+                            ],
+                            "description": "Toolkit provenance: \"native\" for Composio-managed toolkits, \"custom\" for a project-registered custom (MCP) toolkit",
+                            "example": "native"
                           },
                           "auth_schemes": {
                             "type": "array",
@@ -17898,6 +17769,7 @@
                         "required": [
                           "slug",
                           "name",
+                          "type",
                           "is_local_toolkit",
                           "deprecated",
                           "meta"
@@ -18143,6 +18015,15 @@
                       "type": "string",
                       "description": "Human-readable name of the toolkit",
                       "example": "GitHub"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "native",
+                        "custom"
+                      ],
+                      "description": "Toolkit provenance: \"native\" for Composio-managed toolkits, \"custom\" for a project-registered custom (MCP) toolkit",
+                      "example": "native"
                     },
                     "enabled": {
                       "type": "boolean",
@@ -18623,6 +18504,7 @@
                   "required": [
                     "slug",
                     "name",
+                    "type",
                     "enabled",
                     "composio_managed_auth",
                     "is_local_toolkit",
@@ -18767,6 +18649,15 @@
                             "description": "Human-readable name of the toolkit",
                             "example": "GitHub"
                           },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "native",
+                              "custom"
+                            ],
+                            "description": "Toolkit provenance: \"native\" for Composio-managed toolkits, \"custom\" for a project-registered custom (MCP) toolkit",
+                            "example": "native"
+                          },
                           "auth_schemes": {
                             "type": "array",
                             "items": {
@@ -18902,6 +18793,7 @@
                         "required": [
                           "slug",
                           "name",
+                          "type",
                           "is_local_toolkit",
                           "deprecated",
                           "meta"
@@ -19078,18 +18970,6 @@
                     "trigger_id": {
                       "type": "string",
                       "description": "ID of the updated trigger"
-                    },
-                    "deprecated": {
-                      "type": "object",
-                      "properties": {
-                        "uuid": {
-                          "type": "string",
-                          "description": "ID of the updated trigger"
-                        }
-                      },
-                      "required": [
-                        "uuid"
-                      ]
                     }
                   },
                   "required": [
@@ -19109,18 +18989,6 @@
                     "trigger_id": {
                       "type": "string",
                       "description": "ID of the updated trigger"
-                    },
-                    "deprecated": {
-                      "type": "object",
-                      "properties": {
-                        "uuid": {
-                          "type": "string",
-                          "description": "ID of the updated trigger"
-                        }
-                      },
-                      "required": [
-                        "uuid"
-                      ]
                     }
                   },
                   "required": [

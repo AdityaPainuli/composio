@@ -372,7 +372,7 @@
     "name": "Salesforce",
     "logo": "https://logos.composio.dev/api/salesforce",
     "category": "crm",
-    "toolCount": 217,
+    "toolCount": 223,
     "triggerCount": 7
   },
   {
@@ -2212,7 +2212,7 @@
     "name": "Datadog",
     "logo": "https://logos.composio.dev/api/datadog",
     "category": "server monitoring",
-    "toolCount": 43,
+    "toolCount": 64,
     "triggerCount": 0
   },
   {
@@ -10988,7 +10988,7 @@
     "name": "Workday",
     "logo": "https://logos.composio.dev/api/workday",
     "category": "human resources",
-    "toolCount": 497,
+    "toolCount": 551,
     "triggerCount": 13
   },
   {
@@ -11180,7 +11180,7 @@
     "name": "Zip MCP",
     "logo": "https://zip1.io/logo.png",
     "category": null,
-    "toolCount": 0,
+    "toolCount": 4,
     "triggerCount": 0
   },
   {
